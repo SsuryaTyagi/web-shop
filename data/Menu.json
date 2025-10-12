@@ -1,0 +1,59 @@
+[
+    {
+        "image": "pizza.png",
+        "path": "Pizza",
+        "dis":  "Explore hot & spicy dishes that are a specialty of South India."
+    },
+    {
+        "image": "urger.png",
+        "path": "Burger",
+        "dis":  "Cheesilicious pizzas to make every day extraordinary."
+    },
+    {
+        "image": "Wraps.jpg",
+        "path": "Wraps",
+        "dis":  "Dive into these delicious & flavoursome noodles for a perfect meal."
+
+    },
+    {
+        "image": "Garli Bread.png",
+        "path": "Garli Bread",
+        "dis":  "Dive into these delicious & flavoursome Pasta for a perfect meal."
+
+    },
+    {
+        "image": "French Fries.jpg",
+        "path": "French Fries",
+        "dis":  "Satisfy your cravings with these fluffy & flavoursome breads paired with Chole."
+
+    },
+    {
+        "image": "Beverages.jpg",
+        "path": "Beverages",
+        "dis":  "Taste these delectable classics, delectable biryanis to make your day."
+
+    },
+    {
+        "image": "Sandwiches.jpg",
+        "path": "Sandwiches",
+        "dis":  "Veg Cheese Burger with aloo tikki"
+
+    },
+    {
+        "image": "Pasta.jpg",
+        "path": "Pasta",
+        "dis":  "Feast on amazing desserts to satisfy your sweet tooth."
+        
+    },
+      {
+        "image": "Tacos.png",
+        "path": "Tacos",
+        "dis":  "Feast on amazing desserts to satisfy your sweet tooth."
+        
+    },  {
+        "image": "Chocolava cake.jpg",
+        "path": "Chocolava",
+        "dis":  "Feast on amazing desserts to satisfy your sweet tooth."
+        
+    }
+]
