@@ -10,7 +10,7 @@
         "dis":  "Cheesilicious pizzas to make every day extraordinary."
     },
     {
-        "image": "Wraps.jpg",
+        "image": "Wraps.png",
         "path": "Wraps",
         "dis":  "Dive into these delicious & flavoursome noodles for a perfect meal."
 
@@ -22,13 +22,13 @@
 
     },
     {
-        "image": "French Fries.jpg",
+        "image": "French Fries.png",
         "path": "French Fries",
         "dis":  "Satisfy your cravings with these fluffy & flavoursome breads paired with Chole."
 
     },
     {
-        "image": "Beverages.jpg",
+        "image": "Beverages.png",
         "path": "Beverages",
         "dis":  "Taste these delectable classics, delectable biryanis to make your day."
 

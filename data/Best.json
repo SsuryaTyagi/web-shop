@@ -36,7 +36,7 @@
     "price": 99
   },
   {
-    "image": "Best/Garlic Bread.jpeg",
+    "image": "Best/Garlic Bread.jpg",
     "rating": 4.8,
     "category": "Garlic Bread",
     "name": "Stuffed Garlic Bread",
@@ -54,7 +54,7 @@
     "price_l": 499
   },
   {
-    "image": "Best/Chocolate.jpg",
+    "image": "Best/Chocolate.png",
     "rating": 4.8,
     "category": "Shake",
     "name": "Chocolate Shake",
@@ -62,7 +62,7 @@
     "price": 150
   },
   {
-    "image": "Best/Chees Sandwich.jpg",
+    "image": "Best/Chees Sandwich.png",
     "rating": 4.7,
     "category": "Sandwich",
     "name": "Paneer Sandwich",
