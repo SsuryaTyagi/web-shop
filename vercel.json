@@ -9,6 +9,4 @@
     { "src": "/(.*)", "dest": "index.js" }
   ]
 }
-git add vercel.json
-git commit -m "Added static route config for images"
-git push origin main
+
