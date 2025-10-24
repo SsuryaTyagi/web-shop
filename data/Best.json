@@ -1,6 +1,6 @@
 [
   {
-    "image": "Best/Peppy Paneer.jpg",
+    "image": "Best/Peppy_Paneer.jpg",
     "rating": 4.8,
     "category": "Pizza",
     "name": "Peppy Paneer",
@@ -20,7 +20,7 @@
     "price_l": 399
   },
   {
-    "image": "Best/Paneer Burger.jpg",
+    "image": "Best/Paneer_Burger.jpg",
     "rating": 4.8,
     "category": "Burger",
     "name": "Veg Cheese Burger",
@@ -28,7 +28,7 @@
     "price": 90
   },
   {
-    "image": "Best/Mushroom Chilli Wrap.jpg",
+    "image": "Best/Mushroom_Chilli_Wrap.jpg",
     "rating": 4.8,
     "category": "Wrap",
     "name": "Mushroom Chilli Wrap",
@@ -36,7 +36,7 @@
     "price": 99
   },
   {
-    "image": "Best/Garlic Bread.jpg",
+    "image": "Best/Garlic_Bread.jpg",
     "rating": 4.8,
     "category": "Garlic Bread",
     "name": "Stuffed Garlic Bread",
@@ -44,7 +44,7 @@
     "price": 150
   },
   {
-    "image": "Best/Double Paneer Supreme.jpg",
+    "image": "Best/Double_Paneer_Supreme.jpg",
     "rating": 4.8,
     "category": "Pizza",
     "name": "Double Paneer Supreme",
@@ -62,7 +62,7 @@
     "price": 150
   },
   {
-    "image": "Best/Chees Sandwich.png",
+    "image": "Best/Chees_Sandwich.png",
     "rating": 4.7,
     "category": "Sandwich",
     "name": "Paneer Sandwich",
