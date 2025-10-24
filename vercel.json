@@ -6,8 +6,8 @@
   ],
   "routes": [
     { "src": "/Best/(.*)", "dest": "/public/Best/$1" },
-    { "src": "/(.*)", "dest": "/public/$1" },
+    { "src": "/menu/(.*)", "dest": "/public/menu/$1" },
+    { "src": "/(.*\\.(?:jpg|jpeg|png|gif|svg))", "dest": "/public/$1" },
     { "src": "/(.*)", "dest": "index.js" }
   ]
 }
-
