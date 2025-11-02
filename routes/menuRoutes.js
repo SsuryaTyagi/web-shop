@@ -6,7 +6,7 @@ const router = express.Router();
 
 // /best route
 router.get('/menu', (req, res) => {
-  const filePath = path.join(__dirname, '../data/Best.json');
+  const filePath = path.join(__dirname, '../data/Menu.json');
   fs.readFile(filePath, 'utf8', (err, data) => {
     if (err) return res.status(500).send('Internal Server Error');
     try {
