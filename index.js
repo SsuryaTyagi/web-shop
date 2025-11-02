@@ -30,8 +30,8 @@ app.get('/', (req, res) => {
 });
 
 // ✅ Use the new routes
-app.use('/menu', menuRoutes);
-app.use('/best', bestRoutes);
+app.use('/', menuRoutes);
+app.use('/', bestRoutes);
 app.use("/", authRouter); 
 
 // Register route (same as before)
