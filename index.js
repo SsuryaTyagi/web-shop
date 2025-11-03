@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173", // local frontend
-      "https://web-shop-frontend-l7cs.vercel.app", // vercel frontend URL
+      "https://web-shop-nine-zeta.vercel.app", // vercel frontend URL
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
