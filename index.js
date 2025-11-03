@@ -11,8 +11,8 @@ const authRouter = require("./routes/authRouter");
 const app = express();
 app.use(cors({
   origin: [
-    "https://web-shop-frontend-l7cs.vercel.app/",
-    "http://localhost:5173/"
+    "https://web-shop-frontend-l7cs.vercel.app",
+    "http://localhost:5173"
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
