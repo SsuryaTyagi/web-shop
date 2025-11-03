@@ -20,14 +20,17 @@ app.use(bodyParser.json());
 
 const corsOptions = {
   origin: [
-    "https://web-shop-frontend-l7cs.vercel.app",
-    "https://web-shop-nine-zeta.vercel.app"
+    "https://web-shop-frontend-l7cs.vercel.app", // ✅ Frontend ka correct URL
+    "https://web-shop-nine-zeta.vercel.app" // ✅ Apna backend ka bhi allow kar de (helpful for internal calls)
   ],
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions)); // ✅ Preflight requests ke liye zaruri hai
+
 
 app.use(express.static('public'));
 
