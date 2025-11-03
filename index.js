@@ -12,6 +12,7 @@ const app = express();
 app.use(cors({
   origin: [
     "https://web-shop-frontend-l7cs.vercel.app",
+    "https://web-shop-nine-zeta.vercel.app/best",
     "http://localhost:5173"
   ],
   credentials: true
@@ -36,5 +37,5 @@ app.get("/", (req, res) => {
 const port = process.env.PORT || 8000;
 MongoConnection().then(() => {
   console.log("MongoDB connected");
-  app.listen(port, () => console.log(`Server running on port ${port}`));
+  app.listen(port, () => console.log(`http://localhost:${port}`));
 });
