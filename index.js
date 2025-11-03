@@ -9,12 +9,15 @@ const bestRoutes = require("./routes/bestRoutes");
 const authRouter = require("./routes/authRouter");
 
 const app = express();
-cors({
-  origin:[
-    "https://web-shop-frontend-l7cs.vercel.app",
-     "http://localhost:5173"
-  ]
-});
+app.use(cors({
+  origin: [
+    "https://web-shop-frontend-l7cs.vercel.app/",
+    "http://localhost:5173/"
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
 
 
 
