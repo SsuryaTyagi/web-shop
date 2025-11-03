@@ -18,17 +18,16 @@ const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(bodyParser.json());
 
+const corsOptions = {
+  origin: [
+    "https://web-shop-frontend-l7cs.vercel.app",
+    "https://web-shop-nine-zeta.vercel.app"
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+};
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173", 
-      "https://web-shop-nine-zeta.vercel.app", 
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+app.use(cors(corsOptions));
 
 app.use(express.static('public'));
 
