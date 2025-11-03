@@ -11,7 +11,7 @@ const authRouter = require("./routes/authRouter");
 const app = express();
 cors({
   origin:[
-    "https://web-shop-nine-zeta.vercel.app",
+    "https://web-shop-frontend-l7cs.vercel.app",
      "http://localhost:5173"
   ]
 });
