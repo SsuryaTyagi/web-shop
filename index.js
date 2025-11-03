@@ -18,12 +18,12 @@ const port = process.env.PORT || 8000;
 app.use(express.json());
 app.use(bodyParser.json());
 
-// ✅ Yahan CORS ko thoda configure kar:
+
 app.use(
   cors({
     origin: [
-      "http://localhost:5173", // local frontend
-      "https://web-shop-nine-zeta.vercel.app ", // vercel frontend URL
+      "http://localhost:5173", 
+      "https://web-shop-nine-zeta.vercel.app", 
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
