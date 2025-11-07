@@ -50,7 +50,10 @@ authRouter.post("/login", async (req, res) => {
 
     const token = await jwt.sign({ "email":user.email},process.env.JWT_TOKEN_SECRET,  { expiresIn: "2d" } );
     res.cookie("token",token,{
-       httpOnly: true
+       httpOnly: true,
+       secure:false,
+       sameSite: "Lax", // ✅ Local environment ke liye Lax
+       path: "/",
     })
     return res.status(200).json({
       message: "Login successful",
