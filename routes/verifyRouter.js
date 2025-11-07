@@ -2,18 +2,20 @@ const express = require("express");
 let jwt = require("jsonwebtoken");
 
 
-const router = express.router();
+const router = express.Router();
 
 router.get("/verify",(req,res)=>{
-    const token =  req.cooki.token;
+    const token =  req.cookies.token;
      
     //token check 
-    if (!token) return res.state(401).json({message:"No tocken found"})
+    if (!token) return res.status(401).json({ message: "No token found" });
         try {
             const decoded = jwt.verify(token,process.env.JWT_TOKEN_SECRET);
             res.json({message:"User verify", user:decoded});
         } catch (error) {
             console.error("Invalid or expired token", error);
-            res.state(401).json({message:"Invalid or expired token"});
+            res.status(401).json({message:"Invalid or expired token"});
         }
-})
+});
+
+module.exports = router;
