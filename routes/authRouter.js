@@ -51,7 +51,7 @@ authRouter.post("/login", async (req, res) => {
     const token = await jwt.sign({ "email":user.email},process.env.JWT_TOKEN_SECRET,  { expiresIn: "2d" } );
     res.cookie("token",token,{
        httpOnly: true,
-       secure:false,
+       secure:true,
        sameSite: "Lax", // ✅ Local environment ke liye Lax
        path: "/",
     })
@@ -70,7 +70,7 @@ authRouter.post("/login", async (req, res) => {
 });
 //logout route 
 authRouter.post("/logout",(req,res)=>{
-  res.clearCookie('tocken');
+  res.clearCookie('token');
   res.status(200).json({
     message:"User logged out successfully"
   })
