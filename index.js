@@ -8,7 +8,7 @@ const MongoConnection = require("./config/db");
 const menuRoutes = require("./routes/menuRoutes");
 const bestRoutes = require("./routes/bestRoutes");
 const authRouter = require("./routes/authRouter");
-const router = require("./routes/menuRoutes");
+const router = require("./routes/verifyRouter");
 
 const app = express();
 app.use(cors({
