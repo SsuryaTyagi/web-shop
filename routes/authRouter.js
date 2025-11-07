@@ -1,7 +1,7 @@
 const express = require('express');
 const UserModel = require('../Models/user.js');
 const bcrypt = require("bcrypt");
-var jwt = require('jsonwebtoken');
+let jwt = require('jsonwebtoken');
 const authRouter = express.Router();
 
 authRouter.post('/register', async (req, res) => {
@@ -68,6 +68,13 @@ authRouter.post("/login", async (req, res) => {
     });
   }
 });
+//logout route 
+authRouter.post("/logout",(req,res)=>{
+  res.clearCookie('tocken');
+  res.status(200).json({
+    message:"User logged out successfully"
+  })
+})
 
     
   

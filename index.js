@@ -1,12 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 require("dotenv").config();
 const MongoConnection = require("./config/db");
 
 const menuRoutes = require("./routes/menuRoutes");
 const bestRoutes = require("./routes/bestRoutes");
 const authRouter = require("./routes/authRouter");
+const router = require("./routes/menuRoutes");
 
 const app = express();
 app.use(cors({
@@ -22,6 +24,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(cookieParser())
 
 app.use(express.static("public"));
 
@@ -29,6 +32,7 @@ app.use(express.static("public"));
 app.use("/", menuRoutes);
 app.use("/", bestRoutes);
 app.use("/", authRouter);
+app.use("/",router)
 
 app.get("/", (req, res) => {
   res.send("Backend running!");
