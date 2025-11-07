@@ -51,7 +51,7 @@ authRouter.post("/login", async (req, res) => {
     const token = await jwt.sign({ "email":user.email},process.env.JWT_TOKEN_SECRET,  { expiresIn: "2d" } );
     res.cookie("token",token,{
        httpOnly: true,
-       secure:falseprocess.env.NODE_ENV === "production" ? true : false,,
+       secure:process.env.NODE_ENV === "production" ? true : false,,
        sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // ✅ Local environment ke liye Lax
        path: "/",
     })
