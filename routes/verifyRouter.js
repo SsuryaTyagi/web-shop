@@ -5,7 +5,9 @@ let jwt = require("jsonwebtoken");
 const router = express.Router();
 
 router.get("/verify",(req,res)=>{
+    console.log("Cookies received:", req.cookies);
     const token =  req.cookies.token;
+    
      
     //token check 
     if (!token) return res.status(401).json({ message: "No token found" });
