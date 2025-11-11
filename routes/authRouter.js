@@ -42,13 +42,13 @@ authRouter.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const passwordTrue = await bcrypt.compare(password, user.password);
+    const passwordTrue = bcrypt.compare(password, user.password);
 
     if (!passwordTrue) {
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    const token = await jwt.sign({ "email":user.email},process.env.JWT_TOKEN_SECRET,  { expiresIn: "2d" } );
+    const token = jwt.sign({ "email":user.email},process.env.JWT_TOKEN_SECRET,  { expiresIn: "2d" } );
     res.cookie("token",token,{
        httpOnly: true,
        secure:true ,
