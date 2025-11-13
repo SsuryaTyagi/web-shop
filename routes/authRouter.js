@@ -35,26 +35,38 @@ authRouter.post('/register', async (req, res) => {
 });
 authRouter.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body; 
+    const { email, password } = req.body;
+
+    console.log("Received email:", email);
+    console.log("Received password:", password);
 
     const user = await UserModel.findOne({ email });
+
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
-    const passwordTrue = bcrypt.compare(password, user.password);
+    console.log("Password in DB:", user.password);
 
+    const passwordTrue = await bcrypt.compare(password, user.password);
+
+    console.log("Password compare result:", passwordTrue);
+    
     if (!passwordTrue) {
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    const token = jwt.sign({ "email":user.email},process.env.JWT_TOKEN_SECRET,  { expiresIn: "2d" } );
-    res.cookie("token",token,{
-       httpOnly: true,
-       secure:true ,
-       sameSite:"None",
-       path: "/",
-    })
+    // Create JWT token
+    const token =  jwt.sign({ email: user.email, id: user._id },process.env.JWT_TOKEN_SECRET,{ expiresIn: "2d" });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", 
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      path: "/",
+    });
+
+    // Send response
     return res.status(200).json({
       message: "Login successful",
       user,
@@ -68,6 +80,7 @@ authRouter.post("/login", async (req, res) => {
     });
   }
 });
+
 //logout route 
 authRouter.post("/logout",(req,res)=>{
   res.clearCookie('token');
