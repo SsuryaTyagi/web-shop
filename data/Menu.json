@@ -10,19 +10,19 @@
         "dis":  "Cheesilicious pizzas to make every day extraordinary."
     },
     {
-        "image": "Wraps.png",
+        "image": "wraps.jpg",
         "path": "Wraps",
         "dis":  "Dive into these delicious & flavoursome noodles for a perfect meal."
 
     },
     {
-        "image": "Garli Bread.png",
-        "path": "Garli Bread",
+        "image": "gralic_bread.jpg",
+        "path": "Garlic Bread",
         "dis":  "Dive into these delicious & flavoursome Pasta for a perfect meal."
 
     },
     {
-        "image": "French Fries.png",
+        "image": "french_frices.png",
         "path": "French Fries",
         "dis":  "Satisfy your cravings with these fluffy & flavoursome breads paired with Chole."
 
@@ -40,7 +40,7 @@
 
     },
     {
-        "image": "Pasta.jpg",
+        "image": "pasta.png",
         "path": "Pasta",
         "dis":  "Feast on amazing desserts to satisfy your sweet tooth."
         
