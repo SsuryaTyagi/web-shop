@@ -18,7 +18,7 @@ const UserSchema =new mongoose.Schema({
         require:true
     }
 });
-userSchema.methods.checkForValidPassword = async function(passwordByReqBody){
+UserSchema.methods.checkForValidPassword = async function(passwordByReqBody){
 
     const user = this;
      
