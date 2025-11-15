@@ -76,14 +76,14 @@ authRouter.post("/login", async (req, res) => {
     console.log("Generated Token:", token);
     // Set token in cookie
     
-   const isProd = process.env.NODE_ENV === "production";
+  //  const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production",
       secure:true,
       // sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       sameSite: "None",
-       ...(isProd && { domain: ".web-shop-frontend-l7cs.vercel.app" }),
+      //  ...(isProd && { domain: ".web-shop-frontend-l7cs.vercel.app" }),
       priority: "high",
       path: "/",
     });
