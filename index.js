@@ -8,7 +8,7 @@ const MongoConnection = require("./config/db");
 const menuRoutes = require("./routes/menuRoutes");
 const bestRoutes = require("./routes/bestRoutes");
 const authRouter = require("./routes/authRouter");
-const router = require("./routes/verifyRouter");
+const profileRouter = require("./routes/profileRouter");
 
 const app = express();
 app.use(cors({
@@ -34,7 +34,7 @@ app.use(express.static("public"));
 app.use("/", menuRoutes);
 app.use("/", bestRoutes);
 app.use("/", authRouter);
-app.use("/",router)
+app.use("/", profileRouter);
 
 app.get("/", (req, res) => {
   res.send("Backend running!");
