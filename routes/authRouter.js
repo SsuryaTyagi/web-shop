@@ -1,95 +1,108 @@
-const express = require('express');
-const UserModel = require('../Models/user.js');
+const express = require("express");
+const UserModel = require("../Models/user.js");
 const bcrypt = require("bcrypt");
-let jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+
 const authRouter = express.Router();
 
-authRouter.post('/register', async (req, res) => {
+// REGISTER USER
+authRouter.post("/register", async (req, res) => {
   try {
     const { name, number, email, password } = req.body;
 
-    const userExists = await UserModel.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({ message: 'User already exists' });
+    // Check if user already exists
+    const existingUser = await UserModel.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        message: "User already exists",
+      });
     }
-      // hash password 
-     const hashpassword = await bcrypt.hash(password,10)
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const registerUser = await UserModel.create({
+    // Create new user
+    const newUser = await UserModel.create({
       name,
       number,
       email,
-      password:hashpassword
+      password: hashedPassword,
     });
 
-    console.log('User created:', registerUser);
-    res.status(201).json({
-      message: 'User registered successfully',
-      user: registerUser,
+    console.log("New user registered:", newUser);
+
+    return res.status(201).json({
+      message: "User registered successfully",
+      user: newUser,
     });
   } catch (error) {
-    console.error('Error creating user:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error registering user:", error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
   }
 });
+
+
+// LOGIN USER
 authRouter.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log("Received email:", email);
-    console.log("Received password:", password);
+    console.log("Login attempt:", email);
 
+    // Check if user exists
     const user = await UserModel.findOne({ email });
-
     if (!user) {
-      return res.status(400).json({ message: "Invalid credentials" });
+      return res.status(400).json({
+        message: "Invalid credentials",
+      });
     }
 
-    console.log("Password in DB:", user.password);
-
-    const passwordTrue = await user.checkForValidPassword(password);
-
-    // console.log("Password compare result:", passwordTrue);
-    
-    if (!passwordTrue) {
-      return res.status(400).json({ message: "Invalid password" });
+    // Validate password
+    const isPasswordCorrect = await user.checkForValidPassword(password);
+    if (!isPasswordCorrect) {
+      return res.status(400).json({
+        message: "Invalid password",
+      });
     }
 
     // Create JWT token
-    const token =  jwt.sign({ email: user.email, id: user._id },process.env.JWT_TOKEN_SECRET,{ expiresIn: "2d" });
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_TOKEN_SECRET,
+      { expiresIn: "2d" }
+    );
 
+    // Set token in cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", 
+      secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       path: "/",
     });
 
-    // Send response
     return res.status(200).json({
       message: "Login successful",
       user,
     });
-
   } catch (error) {
-    console.error("Login Error:", error);
-    res.status(500).json({
+    console.error("Login error:", error);
+    return res.status(500).json({
       message: "Server error during login",
       error: error.message,
     });
   }
 });
 
-//logout route 
-authRouter.post("/logout",(req,res)=>{
-  res.clearCookie('token');
-  res.status(200).json({
-    message:"User logged out successfully"
-  })
-})
 
-    
-  
+// LOGOUT USER
+authRouter.post("/logout", (req, res) => {
+  res.clearCookie("token");
+
+  return res.status(200).json({
+    message: "User logged out successfully",
+  });
+});
 
 module.exports = authRouter;

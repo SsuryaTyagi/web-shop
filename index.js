@@ -13,6 +13,7 @@ const router = require("./routes/verifyRouter");
 const app = express();
 app.use(cors({
   origin: [
+    "https://web-shop-nine-zeta.vercel.app",
     "https://web-shop-frontend-l7cs.vercel.app",
     "http://localhost:5173"
   ],
