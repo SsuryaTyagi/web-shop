@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const UserModel = require("../Models/user");
 
 const userAuth = (req, res, next)=>{
+    
+    console.log("Cookies received on server:", req.cookies);
 
     // verify JWT token
     jwt.verify(req.cookies.token, process.env.JWT_TOKEN_SECRET,(err, decoded) =>{
