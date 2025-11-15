@@ -75,6 +75,8 @@ authRouter.post("/login", async (req, res) => {
     );
     console.log("Generated Token:", token);
     // Set token in cookie
+    
+   const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production",
