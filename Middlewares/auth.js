@@ -8,7 +8,7 @@ const userAuth = (req, res, next)=>{
         if (err) {
           return res.status(401).json({ message: 'Unauthorized access!!!' });
         }
-        UserModel.findOne(decoded.email).then((user)=>{
+        UserModel.findOne({ email: decoded.email }).then((user)=>{
             if (!user) {
               return res.status(404).json({ message: 'User not found' });
             }
