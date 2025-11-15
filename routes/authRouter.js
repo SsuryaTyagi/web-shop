@@ -80,7 +80,7 @@ authRouter.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production",
-      secure:false,
+      secure:true,
       // sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
       sameSite: "None",
        ...(isProd && { domain: ".web-shop-frontend-l7cs.vercel.app" }),
