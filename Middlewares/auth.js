@@ -4,7 +4,7 @@ const UserModel = require("../Models/user");
 const userAuth = (req, res, next)=>{
 
     // verify JWT token
-    jwt.verify(req.cookies.token, JWT_TOKEN_SECRET,(err, decoded) =>{
+    jwt.verify(req.cookies.token, process.env.JWT_TOKEN_SECRET,(err, decoded) =>{
         if (err) {
           return res.status(401).json({ message: 'Unauthorized access!!!' });
         }
