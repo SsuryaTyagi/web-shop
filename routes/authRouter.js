@@ -73,13 +73,13 @@ authRouter.post("/login", async (req, res) => {
       process.env.JWT_TOKEN_SECRET,
       { expiresIn: "2d" }
     );
-
+    console.log("Generated Token:", token);
     // Set token in cookie
     res.cookie("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      domain: "web-shop-frontend-l7cs.vercel.app",
+      domain: ".web-shop-frontend-l7cs.vercel.app",
       priority: "high",
       path: "/",
     });
