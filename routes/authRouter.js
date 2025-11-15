@@ -48,9 +48,9 @@ authRouter.post("/login", async (req, res) => {
 
     console.log("Password in DB:", user.password);
 
-    const passwordTrue = await bcrypt.compare(password, user.password);
+    const passwordTrue = await user.checkForValidPassword(password);
 
-    console.log("Password compare result:", passwordTrue);
+    // console.log("Password compare result:", passwordTrue);
     
     if (!passwordTrue) {
       return res.status(400).json({ message: "Invalid password" });

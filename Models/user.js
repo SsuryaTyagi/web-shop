@@ -18,6 +18,16 @@ const UserSchema =new mongoose.Schema({
         require:true
     }
 });
+userSchema.methods.checkForValidPassword = async function(passwordByReqBody){
+
+    const user = this;
+     
+    const isPasswordValid = await bcrypt.compare(passwordByReqBody, user.password);  
+    
+    return isPasswordValid;
+     
+ }
+
 
 const userModel = mongoose.model('user', UserSchema);
 module.exports = userModel;
