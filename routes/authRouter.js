@@ -80,7 +80,7 @@ authRouter.post("/login", async (req, res) => {
       // secure: process.env.NODE_ENV === "production",
       secure:false,
       // sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      sameSite:None,
+      sameSite: "None",
        ...(isProd && { domain: ".web-shop-frontend-l7cs.vercel.app" }),
       priority: "high",
       path: "/",
