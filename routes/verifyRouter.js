@@ -4,7 +4,7 @@ let jwt = require("jsonwebtoken");
 
 const router = express.Router();
 
-router.post("/verify",(req,res)=>{
+router.get("/verify",(req,res)=>{
     // console.log("Cookies received:", req.cookies);
     const token =  req.cookies.token;
     
