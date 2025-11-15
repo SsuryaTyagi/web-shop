@@ -11,6 +11,7 @@ const authRouter = require("./routes/authRouter");
 const profileRouter = require("./routes/profileRouter");
 
 const app = express();
+app.set("trust proxy", true);
 app.use(cors({
   origin: [
     "https://web-shop-frontend-l7cs.vercel.app",
