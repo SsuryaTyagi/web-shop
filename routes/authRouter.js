@@ -77,8 +77,10 @@ authRouter.post("/login", async (req, res) => {
     // Set token in cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      // secure: process.env.NODE_ENV === "production",
+      secure:false,
+      // sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+      sameSite:None,
       domain: ".web-shop-frontend-l7cs.vercel.app",
       priority: "high",
       path: "/",
