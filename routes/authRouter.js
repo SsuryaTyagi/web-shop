@@ -79,13 +79,6 @@ authRouter.post("/login", async (req, res) => {
   //  const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      // secure: process.env.NODE_ENV === "production",
-      secure:true,
-      // sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-      sameSite: "none",
-      //  ...(isProd && { domain: ".web-shop-frontend-l7cs.vercel.app" }),
-      priority: "high",
-      path: "/",
     });
     return res.status(200).json({
       message: "Login successful",
