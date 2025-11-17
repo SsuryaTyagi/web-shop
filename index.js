@@ -14,7 +14,7 @@ const app = express();
 app.set("trust proxy", true);
 app.use(cors({
   origin: [
-    // "https://web-shop-frontend-l7cs.vercel.app",
+    "https://web-shop-frontend-l7cs.vercel.app",
     "http://localhost:5173"
   ],
   credentials: true
