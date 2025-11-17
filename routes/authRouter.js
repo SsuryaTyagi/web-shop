@@ -43,7 +43,6 @@ authRouter.post("/register", async (req, res) => {
   }
 });
 
-
 // LOGIN USER
 authRouter.post("/login", async (req, res) => {
   try {
@@ -75,10 +74,13 @@ authRouter.post("/login", async (req, res) => {
     );
     console.log("Generated Token:", token);
     // Set token in cookie
-    
-  //  const isProd = process.env.NODE_ENV === "production";
+
+    //  const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
+      signed: true,
+      secure: true,
+      sameSite: "none",
     });
     return res.status(200).json({
       message: "Login successful",
@@ -92,7 +94,6 @@ authRouter.post("/login", async (req, res) => {
     });
   }
 });
-
 
 // LOGOUT USER
 authRouter.post("/logout", (req, res) => {
