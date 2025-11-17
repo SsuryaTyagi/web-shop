@@ -75,12 +75,12 @@ authRouter.post("/login", async (req, res) => {
     console.log("Generated Token:", token);
     // Set token in cookie
 
-    //  const isProd = process.env.NODE_ENV === "production";
+    const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      signed: true,
-      secure: true,
-      sameSite: "none",
+      secure: isProd, 
+      sameSite: isProd ? "none" : "lax",
+      path: "/",
     });
     return res.status(200).json({
       message: "Login successful",
