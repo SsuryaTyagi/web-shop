@@ -3,6 +3,7 @@ const UserModel = require("../Models/user");
 
 const userAuth = (req, res, next) => {
   console.log("Cookies from frontend:", req.cookies);
+  console.log(" RAW HEADERS COOKIE: ", req.headers.cookie);
   // console.log("Headers:", req.headers);
 
   // verify JWT token

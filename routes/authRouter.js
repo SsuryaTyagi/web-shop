@@ -78,9 +78,9 @@ authRouter.post("/login", async (req, res) => {
     const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
- secure: false,     // ⭐ LOCALHOST = FALSE
-  sameSite: "lax",   // ⭐ LOCALHOST = LAX
-  path: "/"
+      secure: false,    
+       sameSite: "lax",   
+      path: "/"
     });
     return res.status(200).json({
       message: "Login successful",
