@@ -77,7 +77,7 @@ authRouter.post("/login", async (req, res) => {
 
     //  const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
-      httpOnly: false,
+      httpOnly: true,
       signed: true,
       secure: true,
       sameSite: "none",
