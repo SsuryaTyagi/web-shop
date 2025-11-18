@@ -19,14 +19,6 @@ app.use(cors({
   ],
   credentials: true
 }));
-app.options('*', cors({
-    origin: [
-    "https://web-shop-frontend-l7cs.vercel.app",
-    "http://localhost:5173"
-  ],
-    credentials: true
-}));
-
 
 app.use(cookieParser());
 app.use(express.json());
