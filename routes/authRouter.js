@@ -8,7 +8,7 @@ const authRouter = express.Router();
 // REGISTER USER
 authRouter.post("/register", async (req, res) => {
   try {
-    const { name, number, email, password } = req.body;
+    const { name, number, email, password, address} = req.body;
 
     // Check if user already exists
     const existingUser = await UserModel.findOne({ email });
