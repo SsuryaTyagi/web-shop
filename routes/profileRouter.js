@@ -3,7 +3,7 @@ const { userAuth } = require("../Middlewares/auth");
 
 const profileRouter = express.Router();
 
-profileRouter.get("/profile", userAuth, (req, res) => {
+profileRouter.post("/profile", userAuth, (req, res) => {
   res.status(200).json({
     message: "User profile fetched successfully",
     user: req.user,
