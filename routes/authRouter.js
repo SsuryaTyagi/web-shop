@@ -79,7 +79,8 @@ authRouter.post("/login", async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,    
-       sameSite: "none",   
+       sameSite: "none", 
+       domain: ".vercel.app",  
       path: "/"
     });
     return res.status(200).json({
