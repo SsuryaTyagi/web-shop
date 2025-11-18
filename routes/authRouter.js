@@ -67,11 +67,7 @@ authRouter.post("/login", async (req, res) => {
     }
 
     // Create JWT token
-    const token = jwt.sign(
-      { id: user._id, email: user.email },
-      process.env.JWT_TOKEN_SECRET,
-      { expiresIn: "2d" }
-    );
+    const token = await user.jwtUserAuthenticationToken();
     console.log("Generated Token:", token);
     // Set token in cookie
 
@@ -80,7 +76,7 @@ authRouter.post("/login", async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      domain: "web-shop-nine-zeta.vercel.app",
+      // domain: "web-shop-frontend-l7cs.vercel.app",
       path: "/",
       maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
     });
