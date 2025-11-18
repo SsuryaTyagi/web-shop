@@ -78,16 +78,17 @@ authRouter.post("/login", async (req, res) => {
     const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,    
-       sameSite: "none", 
-       domain: ".vercel.app",  
-      path: "/"
+      secure: true,
+      sameSite: "none",
+      domain: "web-shop-nine-zeta.vercel.app",
+      path: "/",
+      maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
     });
+
     return res.status(200).json({
       message: "Login successful",
       user,
     });
-
   } catch (error) {
     console.error("Login error:", error);
     return res.status(500).json({
