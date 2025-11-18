@@ -96,7 +96,7 @@ authRouter.post("/login", async (req, res) => {
 
 // LOGOUT USER
 app.post("/logout", (req, res) => {
-  res.clearCookie("token")
+  res.clearCookie("cookies")
 
   return res.json({ message: "Logged out" });
 });
