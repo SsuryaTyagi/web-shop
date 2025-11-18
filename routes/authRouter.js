@@ -27,7 +27,8 @@ authRouter.post("/register", async (req, res) => {
       number,
       email,
       password: hashedPassword,
-    });
+      address
+});
 
     console.log("New user registered:", newUser);
 
