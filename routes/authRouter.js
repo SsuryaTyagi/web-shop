@@ -95,12 +95,15 @@ authRouter.post("/login", async (req, res) => {
 });
 
 // LOGOUT USER
-authRouter.post("/logout", (req, res) => {
-  res.clearCookie("token");
-
-  return res.status(200).json({
-    message: "User logged out successfully",
+app.post("/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
   });
+
+  return res.json({ message: "Logged out" });
 });
+
 
 module.exports = authRouter;
