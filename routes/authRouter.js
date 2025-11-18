@@ -78,7 +78,7 @@ authRouter.post("/login", async (req, res) => {
     const isProd = process.env.NODE_ENV === "production";
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,    
+      secure: isProd,    
        sameSite: "lax",   
       path: "/"
     });
@@ -86,6 +86,7 @@ authRouter.post("/login", async (req, res) => {
       message: "Login successful",
       user,
     });
+    
   } catch (error) {
     console.error("Login error:", error);
     return res.status(500).json({

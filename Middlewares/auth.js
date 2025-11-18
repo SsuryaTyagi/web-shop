@@ -10,7 +10,7 @@ const userAuth = (req, res, next) => {
   jwt.verify(req.cookies.token, process.env.JWT_TOKEN_SECRET, (err, decoded) => {
 
       if (err) {
-        return res.status(401).json({ message: "Unauthorized access!!!" });
+        return res.status(401).json({ message: "Unauthorized access: Token not present." });
       };
       
       UserModel.findOne({ email: decoded.email })
