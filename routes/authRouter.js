@@ -10,6 +10,11 @@ authRouter.post("/register", async (req, res) => {
   try {
     const { name, number, email, password, address} = req.body;
 
+    if (email === "" && password === "") {
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+    }
     // Check if user already exists
     const existingUser = await UserModel.findOne({ email });
     if (existingUser) {
