@@ -12,7 +12,7 @@ authRouter.post("/register", async (req, res) => {
 
     if (email === "" && password === "") {
     return res.status(500).json({
-      message: "Internal Server Error",
+      message: "Enter full detail...",
     });
     }
     // Check if user already exists
