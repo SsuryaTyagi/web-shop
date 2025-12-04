@@ -29,19 +29,27 @@ passport.use(
   )
 );
 
-// 1️⃣ START GOOGLE LOGIN
+// 1️⃣ START GOOGLE LOGIN  (yaha mode ko SESSION me daalenge)
 googleAuthenticator.get(
   "/auth/google",
+  (req, res, next) => {
+    // ?mode=login / register se mode leke session me dal diya
+    req.session.mode = req.query.mode || "login";
+    next();
+  },
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-// 2️⃣ CALLBACK (ONLY ONCE)
+// 2️⃣ CALLBACK
 googleAuthenticator.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/login" }),
   async (req, res) => {
     const googleUser = req.user;
-    const mode = req.query.mode; // login or register
+    const mode = req.session.mode || "login";  // yaha se mode aayega
+
+    // Ek baar use ho gaya to session se hata bhi sakte ho
+    delete req.session.mode;
 
     let user = await UserModel.findOne({ googleId: googleUser.id });
 
@@ -84,6 +92,9 @@ googleAuthenticator.get(
 
       return res.redirect("https://web-shop-frontend.vercel.app");
     }
+
+    // safety: agar mode kuch aur hua to
+    return res.redirect("https://web-shop-frontend.vercel.app/login?error=unknown-mode");
   }
 );
 
