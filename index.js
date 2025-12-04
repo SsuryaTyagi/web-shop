@@ -9,6 +9,7 @@ const menuRoutes = require("./routes/menuRoutes");
 const bestRoutes = require("./routes/bestRoutes");
 const authRouter = require("./routes/authRouter");
 const profileRouter = require("./routes/profileRouter");
+const sendMaile = require("./routes/contactMail");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -32,6 +33,7 @@ app.use("/", menuRoutes);
 app.use("/", bestRoutes);
 app.use("/", authRouter);
 app.use("/", profileRouter);
+app.use("/", sendMaile);
 
 app.get("/", (req, res) => {
   res.send("Backend running!");
