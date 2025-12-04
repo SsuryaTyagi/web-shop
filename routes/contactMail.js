@@ -23,7 +23,7 @@ sendMaile.post("/contact", async (req, res) => {
     console.log("Server is ready to take our messages");
 
     const info = await transporter.sendMail({
-      from: `"${name}"`, // sender address
+      from: `${name}`, // sender address
       to: process.env.SMTP_USER,  // list of receivers
       replyTo: `${name} <${email}>`,
       subject: `${subject}`, // Subject line
