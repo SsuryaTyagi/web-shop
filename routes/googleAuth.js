@@ -62,12 +62,15 @@ googleAuthenticator.get(
       }
 
       const token = user.jwtUserAuthenticationToken();
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        path: "/",
-      });
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      // domain: "web-shop-frontend.vercel.app",
+      path: "/",
+      maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
+    });
+
 
       return res.redirect("https://web-shop-frontend.vercel.app");
     }
