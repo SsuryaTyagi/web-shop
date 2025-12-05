@@ -5,15 +5,12 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const googleAuthenticator = express.Router();
 
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+      callbackURL: "https://web-shop-api.vercel.app/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
       return done(null, profile);
@@ -21,40 +18,32 @@ passport.use(
   )
 );
 
-// STEP 1 — GOOGLE LOGIN START
-googleAuthenticator.get(
-  "/auth/google",
-  (req, res, next) => {
-    console.log(req.session.mode);
-    
-    req.session.mode = req.query.mode || "login"; // save mode
-    next();
-  },
-  passport.authenticate("google", { scope: ["profile", "email"] })
-);
+// STEP 1 — START LOGIN
+googleAuthenticator.get("/auth/google", (req, res) => {
+  const mode = req.query.mode || "login";
+
+  return passport.authenticate("google", {
+    scope: ["profile", "email"],
+    state: mode, // pass mode as URL state
+    session: false,
+  })(req, res);
+});
 
 // STEP 2 — CALLBACK
 googleAuthenticator.get(
   "/auth/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google", { session: false, failureRedirect: "/login" }),
   async (req, res) => {
     const googleUser = req.user;
-    const mode = req.session.mode || "login"; // retrieve mode
-    delete req.session.mode;
-
-
+    const mode = req.query.state || "login"; // get mode
 
     let user = await UserModel.findOne({ googleId: googleUser.id });
 
-    console.log(user);
-    
     // LOGIN MODE
-    if (mode === "login") {
-      if (!user) {
-        return res.redirect(
-          "https://web-shop-frontend.vercel.app/login?error=not-registered"
-        );
-      }
+    if (mode === "login" && !user) {
+      return res.redirect(
+        "https://web-shop-frontend.vercel.app/login?error=not-registered"
+      );
     }
 
     // REGISTER MODE
@@ -66,8 +55,9 @@ googleAuthenticator.get(
       });
     }
 
-    // SEND TOKEN
+    // SEND TOKEN COOKIE
     const token = user.jwtUserAuthenticationToken();
+
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
