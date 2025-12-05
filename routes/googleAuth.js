@@ -25,6 +25,8 @@ passport.use(
 googleAuthenticator.get(
   "/auth/google",
   (req, res, next) => {
+    console.log(req.session.mode);
+    
     req.session.mode = req.query.mode || "login"; // save mode
     next();
   },
@@ -40,8 +42,12 @@ googleAuthenticator.get(
     const mode = req.session.mode || "login"; // retrieve mode
     delete req.session.mode;
 
+
+
     let user = await UserModel.findOne({ googleId: googleUser.id });
 
+    console.log(user);
+    
     // LOGIN MODE
     if (mode === "login") {
       if (!user) {
