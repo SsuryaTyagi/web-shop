@@ -64,6 +64,7 @@ googleAuthenticator.get(
       sameSite: "none",
       path: "/",
     });
+console.log(token);
 
     return res.redirect("https://web-shop-frontend.vercel.app");
   }
