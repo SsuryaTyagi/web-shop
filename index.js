@@ -26,22 +26,22 @@ app.use(cors({
 }));
 
 // SESSION
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: false,
 
-    cookie: {
-      sameSite: "none",
-      secure: true,
-    }
-  })
-);
+//     cookie: {
+//       sameSite: "none",
+//       secure: true,
+//     }
+//   })
+// );
 
 
 app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.session());
 
 app.use(cookieParser());
 app.use(express.json());

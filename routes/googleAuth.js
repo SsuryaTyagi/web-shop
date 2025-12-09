@@ -63,8 +63,8 @@ googleAuthenticator.get(
       secure: true,
       sameSite: "none",
       path: "/",
+      maxAge: 2 * 24 * 60 * 60 * 1000, 
     });
-console.log(token);
 
     return res.redirect("https://web-shop-frontend.vercel.app");
   }

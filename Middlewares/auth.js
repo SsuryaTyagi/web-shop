@@ -5,11 +5,18 @@ const userAuth = (req, res, next) => {
   console.log("Cookies from frontend:", req.cookies);
   console.log(" RAW HEADERS COOKIE: ", req.headers.cookie);
 
+      // 1. Check cookie exists
+    if (!req.cookies || !req.cookies.token) {
+      return res.status(401).json({
+        message: "Unauthorized: No token found"
+      });
+    }
+
   // verify JWT token
   jwt.verify(req.cookies.token, process.env.JWT_TOKEN_SECRET, (err, decoded) => {
 
       if (err) {
-        return res.status(401).json({ message: "Unauthorized access: Token not present." });
+        return res.status(401).json({ message: "Unauthorized: Invalid or expired token" });
       };
       
       UserModel.findOne({ email: decoded.email })

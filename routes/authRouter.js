@@ -56,7 +56,7 @@ authRouter.post("/login", async (req, res) => {
 
     console.log("Login attempt:", email);
 
-    // Check if user exists
+    // Check if user existsF
     const user = await UserModel.findOne({ email });
     if (!user) {
       return res.status(400).json({
@@ -82,7 +82,6 @@ authRouter.post("/login", async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: "none",
-      // domain: "web-shop-frontend.vercel.app",
       path: "/",
       maxAge: 2 * 24 * 60 * 60 * 1000, // 2 days
     });
@@ -106,7 +105,6 @@ authRouter.post("/logout", (req, res) => {
     httpOnly: true,
     secure: true,
     sameSite: "none",
-    // domain: "web-shop-frontend.vercel.app",
     path: "/",  
   });
 
