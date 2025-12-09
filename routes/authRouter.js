@@ -96,6 +96,7 @@ authRouter.post("/login", async (req, res) => {
       message: "Server error during login",
       error: error.message,
     });
+    
   }
 });
 
