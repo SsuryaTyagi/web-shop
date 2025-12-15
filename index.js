@@ -14,6 +14,7 @@ const authRouter = require("./routes/authRouter");
 const profileRouter = require("./routes/profileRouter");
 const sendMaile = require("./routes/contactMail");
 const googleAuthenticator = require("./routes/googleAuth");
+const paymentRouter = require("./routes/payment");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -57,6 +58,7 @@ app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", sendMaile);
 app.use("/",googleAuthenticator)
+app.use("/api/payment", paymentRouter)
 
 
 
