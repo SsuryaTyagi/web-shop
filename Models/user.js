@@ -5,24 +5,24 @@ const jwt = require("jsonwebtoken");
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   number: {
     type: Number,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   }
 });
 UserSchema.methods.checkForValidPassword = async function (passwordByReqBody) {

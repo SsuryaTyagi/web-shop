@@ -35,7 +35,7 @@ authRouter.post("/register", async (req, res) => {
       address
 });
 
-    console.log("New user registered:", newUser);
+    // console.log("New user registered:", newUser);
 
     return res.status(201).json({
       message: "User registered successfully",
