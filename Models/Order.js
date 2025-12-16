@@ -14,7 +14,7 @@ const orderSchema = new mongoose.Schema(
         name: String,
         price: Number,
         img: String,
-        qty: Number,
+        quantity: Number,
       },
     ],
 
