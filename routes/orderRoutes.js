@@ -6,7 +6,7 @@ const OrderRoutes = express.Router();
 OrderRoutes.post("/create", async (req, res) => {
   const { user, items, order_total, payment_id } = req.body;
   try {
-    if (email === "" && order === "" && number === "") {
+    if ( order === ""&&user === "") {
       return res.status(500).json({
         message: "Enter full detail...",
       });
