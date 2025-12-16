@@ -42,7 +42,7 @@ OrderRoutes.post("/orderDetails", async (req, res) => {
     }
 
     const order = await OrderCreate.find({
-      email: email,
+       "user.email": email,
     }).sort({ createdAt: -1 });
     res.status(200).json({
       success: true,
