@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { GetBestController } = require("../controllers/best.controller");
+const { GetBestController } = require('../Controllers/Best.controller');
  
 router.get("/best", GetBestController);
  
