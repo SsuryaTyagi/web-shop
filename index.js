@@ -3,19 +3,19 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 require("dotenv").config();
-const MongoConnection = require("./config/db");
+const MongoConnection = require("./src/config/db");
 const session = require("express-session");
 const passport = require("passport");
 
 
-const menuRoutes = require("./routes/menuRoutes");
-const bestRoutes = require("./routes/bestRoutes");
-const authRouter = require("./routes/authRouter");
-const profileRouter = require("./routes/profileRouter");
-const sendMaile = require("./routes/contactMail");
-const googleAuthenticator = require("./routes/googleAuth");
-const paymentRouter = require("./routes/payment");
-const OrderRoutes = require("./routes/orderRoutes");
+const menuRoutes = require("./src/routes/menuRoutes");
+const bestRoutes = require("./src/routes/bestRoutes");
+const authRouter = require("./src/routes/authRouter");
+const profileRouter = require("./src/routes/profileRouter");
+const sendMaile = require("./src/routes/contactMail");
+const googleAuthenticator = require("./src/routes/googleAuth");
+const paymentRouter = require("./src/routes/payment");
+const OrderRoutes = require("./src/routes/orderRoutes");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -64,9 +64,9 @@ app.use("/", OrderRoutes);
 
 
 
-app.get("/", (req, res) => {
-  res.send("Backend running!");
-});
+// app.get("/", (req, res) => {
+//   res.send("Backend running!");
+// });
 
 const port = process.env.PORT || 8000;
 MongoConnection().then(() => {

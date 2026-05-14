@@ -1,0 +1,72 @@
+[
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/PeppyPaneer.jpg",
+    "rating": 4.8,
+    "category": "Pizza",
+    "name": "Peppy Paneer",
+    "title": "Capsicum, paneer, red paprika",
+    "price": 150,
+    "price_m": 230,
+    "price_l": 399
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/Framhouse.jpg",
+    "rating": 4.8,
+    "category": "Pizza",
+    "name": "Farmhouse",
+    "title": "Onion, tomato, capsicum, mushroom, red paprika",
+    "price": 170,
+    "price_m": 250,
+    "price_l": 399
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/paneer_burger.jpg",
+    "rating": 4.8,
+    "category": "Burger",
+    "name": "Veg Cheese Burger",
+    "title": "Onion, tomato, cheese, aloo tikki",
+    "price": 90
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/Mushrooms%20chilli.jpg",
+    "rating": 4.8,
+    "category": "Wrap",
+    "name": "Mushroom Chilli Wrap",
+    "title": "Onion, tomato, cheese, mushroom, corn",
+    "price": 99
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/Garlic_Bread.jpg",
+    "rating": 4.8,
+    "category": "Garlic Bread",
+    "name": "Stuffed Garlic Bread",
+    "title": "Onion, cheese, corn, jalapeno",
+    "price": 150
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/Double_Paneer_Supreme.jpg",
+    "rating": 4.8,
+    "category": "Pizza",
+    "name": "Double Paneer Supreme",
+    "title": "Onion, capsicum, tomato, jalapeno, black olive, red paprika, cheese, mushroom, corn",
+     "price": 200,
+    "price_m": 350,
+    "price_l": 499
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/Chocolate.png",
+    "rating": 4.8,
+    "category": "Shake",
+    "name": "Chocolate Shake",
+    "title": "Chocolate, milk, ice, sugar",
+    "price": 150
+  },
+  {
+    "image": "https://ik.imagekit.io/gb1lyvp8q/The%20pizza%20hub/best/Chees_Sandwich.png",
+    "rating": 4.7,
+    "category": "Sandwich",
+    "name": "Paneer Sandwich",
+    "title": "Onion, tomato, cheese, paneer, corn",
+    "price": 99
+  }
+]
