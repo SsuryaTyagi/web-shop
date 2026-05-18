@@ -68,8 +68,19 @@ app.use("/", OrderRoutes);
 //   res.send("Backend running!");
 // });
 
+// ✅ Yeh karo
 const port = process.env.PORT || 8000;
-MongoConnection().then(() => {
-  console.log("MongoDB connected");
+
+MongoConnection()
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => console.error("MongoDB error:", err));
+
+// Local development ke liye
+if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => console.log(`http://localhost:${port}`));
-});
+}
+
+// Vercel ke liye — app export karo
+module.exports = app;
