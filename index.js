@@ -64,9 +64,9 @@ app.use("/", OrderRoutes);
 
 
 
-// app.get("/", (req, res) => {
-//   res.send("Backend running!");
-// });
+app.get("/", (req, res) => {
+  res.send("Backend running!");
+});
 
 // ✅ Yeh karo
 const port = process.env.PORT || 8000;
