@@ -10,7 +10,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.SMTP_PASS,
   },
 });
-//  okipoklpo
 
 const SendMailController = async (req, res) => {
   const { name, email, subject, message } = req.body;
