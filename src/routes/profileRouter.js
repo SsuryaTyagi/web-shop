@@ -3,11 +3,9 @@ const { userAuth } = require("../Middlewares/auth");
 
 const profileRouter = express.Router();
 
-profileRouter.post("/profile", userAuth, (req, res) => {
-  res.status(200).json({
-    message: "User profile fetched successfully",
-    user: req.user,
-  });
+profileRouter.get("/profile", userAuth, (req, res) => {
+  const { password, __v, ...safeUser } = req.user.toObject();
+  res.status(200).json({ user: safeUser });
 });
 
 module.exports = profileRouter;

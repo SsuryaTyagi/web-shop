@@ -23,22 +23,20 @@ const UserSchema = new mongoose.Schema({
   address: {
     type: String,
     required: true,
-  }
+  },
 });
 UserSchema.methods.checkForValidPassword = async function (passwordByReqBody) {
-  const user = this;
-
-  const isPasswordValid = await bcrypt.compare(
-    passwordByReqBody,
-    user.password
-  );
-
-  return isPasswordValid;
+  if (!this.password) return false; // ✅ Google user hai — password nahi
+  return bcrypt.compare(passwordByReqBody, this.password);
 };
 UserSchema.methods.jwtUserAuthenticationToken = async function () {
   const user = this;
 
-  const token = await jwt.sign({ id: user._id, email: user.email }, process.env.JWT_TOKEN_SECRET, { expiresIn: "2d" });
+  const token = await jwt.sign(
+    { id: user._id, email: user.email },
+    process.env.JWT_TOKEN_SECRET,
+    { expiresIn: "2d" },
+  );
 
   return token;
 };

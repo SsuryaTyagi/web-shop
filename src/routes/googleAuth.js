@@ -14,8 +14,8 @@ passport.use(
     },
     (accessToken, refreshToken, profile, done) => {
       return done(null, profile);
-    }
-  )
+    },
+  ),
 );
 
 // STEP 1 — START LOGIN
@@ -32,7 +32,10 @@ googleAuthenticator.get("/auth/google", (req, res) => {
 // STEP 2 — CALLBACK
 googleAuthenticator.get(
   "/auth/google/callback",
-  passport.authenticate("google", { session: false, failureRedirect: "/login" }),
+  passport.authenticate("google", {
+    session: false,
+    failureRedirect: "/login",
+  }),
   async (req, res) => {
     const googleUser = req.user;
     const mode = req.query.state || "login"; // get mode
@@ -42,32 +45,35 @@ googleAuthenticator.get(
     // LOGIN MODE
     if (mode === "login" && !user) {
       return res.redirect(
-        "https://web-shop-frontend.vercel.app/login?error=not-registered"
+        "https://web-shop-frontend.vercel.app/login?error=not-registered",
       );
     }
 
     // REGISTER MODE
     if (!user) {
-      user = await UserModel.create({
-        googleId: googleUser.id,
-        email: googleUser.emails[0].value,
-        name: googleUser.displayName,
+      const UserSchema = new mongoose.Schema({
+        name: { type: String, required: true },
+        email: { type: String, required: true, unique: true },
+        googleId: { type: String, default: null }, // ✅ add karo
+        number: { type: Number, required: false, default: null }, // ✅
+        address: { type: String, required: false, default: null }, // ✅
+        password: { type: String, default: null }, // ✅ Google users ka password nahi hoga
       });
     }
 
     // SEND TOKEN COOKIE
-    const token = user.jwtUserAuthenticationToken();
+    const token = await user.jwtUserAuthenticationToken();
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "none",
       path: "/",
-      maxAge: 2 * 24 * 60 * 60 * 1000, 
+      maxAge: 2 * 24 * 60 * 60 * 1000,
     });
 
     return res.redirect("https://web-shop-frontend.vercel.app");
-  }
+  },
 );
 
 module.exports = googleAuthenticator;
