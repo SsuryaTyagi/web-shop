@@ -3,13 +3,27 @@ const UserModel = require("../Models/user");
 
 const userAuth = async (req, res, next) => {
   try {
-    if (!req.cookies?.token) {
+    // ✅ Pehle header check (normal login), phir cookie (Google login)
+    const authHeader = req.headers.authorization;
+    const headerToken = authHeader?.startsWith("Bearer ")
+      ? authHeader.split(" ")[1]
+      : null;
+
+    const token = headerToken || req.cookies?.token;
+
+    if (!token) {
       return res.status(401).json({ message: "Unauthorized: No token found" });
     }
 
-    const decoded = jwt.verify(req.cookies.token, process.env.JWT_TOKEN_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
 
-    const user = await UserModel.findOne({ email: decoded.email });
+    // ✅ id ya email — dono se dhundo
+    const user = await UserModel.findOne(
+      decoded.id
+        ? { _id: decoded.id }
+        : { email: decoded.email }
+    );
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -28,6 +42,4 @@ const userAuth = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  userAuth,
-};
+module.exports = { userAuth };
