@@ -41,7 +41,7 @@ app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", sendMaile);
 app.use(passport.initialize());
-app.use("/",googleAuthenticator);
+app.use("/auth", googleAuthenticator);
 app.use("/api/payment", paymentRouter);
 app.use("/", OrderRoutes);
 
