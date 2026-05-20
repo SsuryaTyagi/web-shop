@@ -1,11 +1,35 @@
-const express = require("express");
-const { userAuth } = require("../Middlewares/auth");
+const jwt = require("jsonwebtoken");
+const UserModel = require("../Models/user");
 
-const profileRouter = express.Router();
+const userAuth = async (req, res, next) => {
+  try {
+    // ✅ Pehle cookie check karo, phir Authorization header
+    let token = req.cookies?.token;
 
-profileRouter.get("/profile", userAuth, (req, res) => {
-  const { password, __v, ...safeUser } = req.user.toObject();
-  res.status(200).json({ user: safeUser });
-});
+    if (!token && req.headers.authorization?.startsWith("Bearer ")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
 
-module.exports = profileRouter;
+    if (!token) {
+      return res.status(401).json({ message: "Unauthorized: No token found" });
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
+
+    const user = await UserModel.findOne({ email: decoded.email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    req.user = user;
+    next();
+
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      return res.status(401).json({ message: "Token expired" });
+    }
+    return res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+module.exports = { userAuth };
