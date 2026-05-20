@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 const passport = require("passport");
 const UserModel = require("../Models/user.js");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
