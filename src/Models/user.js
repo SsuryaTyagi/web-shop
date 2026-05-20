@@ -9,7 +9,6 @@ const UserSchema = new mongoose.Schema({
   },
   number: {
     type: Number,
-    required: true,
   },
   email: {
     type: String,
@@ -18,11 +17,11 @@ const UserSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    
   },
   address: {
     type: String,
-    required: true,
+  
   },
 });
 UserSchema.methods.checkForValidPassword = async function (passwordByReqBody) {
