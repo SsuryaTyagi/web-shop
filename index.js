@@ -5,7 +5,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const MongoConnection = require("./src/config/db");
 const session = require("express-session");
-const passport = require("passport");
 
 
 const app = express();
@@ -17,9 +16,6 @@ app.use(cors({
   ],
   credentials: true
 }));
-
-app.use(passport.initialize());
-// app.use(passport.session());
 
 app.use(cookieParser());
 app.use(express.json());
