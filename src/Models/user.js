@@ -3,37 +3,16 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
+  googleId:  { type: String, default: null },
+  name:      { type: String, required: true },
+  number:    { type: Number, default: null },
+  email:     { type: String, required: true, unique: true },
+  password:  { type: String, default: null },
+  address:   { type: String, default: null },
 
-  googleId: {
-    type: String,
-    default: null,
-  },
+  verified:  { type: Boolean, default: false },
 
-  name: {
-    type: String,
-    required: true,
-  },
-
-  number: {
-    type: Number,
-    default: null,
-  },
-
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-
-  password: {
-    type: String,
-    default: null, // ✅ Google user ka null hoga
-  },
-
-  address: {
-    type: String,
-    default: null,
-  },
+  verificationToken: { type: String, default: null },
 });
 
 // ✅ Google user ka password null hoga — hash mat karo
