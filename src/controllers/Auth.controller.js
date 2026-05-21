@@ -1,6 +1,4 @@
 const UserModel = require("../Models/user.js");
-const bcrypt = require("bcrypt");
-const crypto = require("crypto"); 
 const { sendVerificationEmail } = require("../services/email.service");
 const { generateVerificationToken, verifyVerificationToken } = require("../utils/jwt.utils")
 
@@ -18,15 +16,14 @@ const RegisterController = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // ✅ bcrypt.hash hatao — pre('save')
     const newUser = await UserModel.create({
       name, number, email,
-      password: hashedPassword,
+      password,        
       address,
-      verified: false, // ✅ default false
+      verified: false,
     });
 
-    // ✅ Verification token banao aur email bhejo
     const verificationToken = generateVerificationToken(email);
     await sendVerificationEmail(email, name, verificationToken);
 
