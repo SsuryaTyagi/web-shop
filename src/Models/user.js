@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const UserSchema = new mongoose.Schema({
-  // ✅ Google ke liye add kiya
+
   googleId: {
     type: String,
     default: null,

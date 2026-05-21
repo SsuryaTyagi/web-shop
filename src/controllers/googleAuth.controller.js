@@ -6,29 +6,17 @@ const googleCallback = async (req, res) => {
     const mode = req.query.state || "login";
     const googleEmail = googleUser.emails[0].value;
 
-    console.log("=== GOOGLE CALLBACK ===");
-    console.log("Mode:", mode);
-    console.log("Google ID:", googleUser?.id);
-    console.log("Email:", googleEmail);
-
-    // ✅ Pehle googleId se dhundo
     let user = await UserModel.findOne({ googleId: googleUser.id });
 
-    // ✅ Nahi mila toh email se dhundo (purane users ke liye)
     if (!user) {
       user = await UserModel.findOne({ email: googleEmail });
-
       if (user) {
-        user.googleId = googleUser.id; // googleId update karo
+        user.googleId = googleUser.id;
         await user.save();
-        console.log("✅ GoogleId updated:", googleEmail);
       }
     }
 
-    console.log("User found in DB:", user ? user.email : "NOT FOUND");
-
     if (mode === "login" && !user) {
-      console.log("❌ Login failed — user not registered");
       return res.redirect(
         "https://web-shop-frontend.vercel.app/login?error=not-registered"
       );
@@ -43,25 +31,22 @@ const googleCallback = async (req, res) => {
         address: null,
         password: null,
       });
-      console.log("✅ New user created:", user.email);
+
+      const token = await user.jwtUserAuthenticationToken();
+      // ✅ Naya user → complete-profile pe bhejo
+      return res.redirect(
+        `https://web-shop-frontend.vercel.app/complete-profile?token=${token}`
+      );
     }
 
     const token = await user.jwtUserAuthenticationToken();
-    console.log("✅ Token generated");
-
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-      path: "/",
-      maxAge: 2 * 24 * 60 * 60 * 1000,
-    });
-    console.log("✅ Cookie set — redirecting");
-
-    return res.redirect("https://web-shop-frontend.vercel.app");
+    // ✅ Cookie nahi — URL mein token bhejo
+    return res.redirect(
+      `https://web-shop-frontend.vercel.app?token=${token}`
+    );
 
   } catch (err) {
-    console.error("❌ Google Auth Error:", err.message);
+    console.error("Google Auth Error:", err.message);
     return res.redirect(
       "https://web-shop-frontend.vercel.app/login?error=server-error"
     );

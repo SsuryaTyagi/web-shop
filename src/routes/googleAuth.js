@@ -4,7 +4,7 @@ const { googleCallback } = require("../controllers/googleAuth.controller");
 
 const router = express.Router();
 
-// STEP 1 — Google pe redirect karo
+
 router.get("/google", (req, res) => {
   const mode = req.query.mode || "login";
   return passport.authenticate("google", {
@@ -14,7 +14,7 @@ router.get("/google", (req, res) => {
   })(req, res);
 });
 
-// STEP 2 — Google callback handle karo
+
 router.get(
   "/google/callback",
   passport.authenticate("google", {
