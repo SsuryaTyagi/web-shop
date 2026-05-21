@@ -2,7 +2,7 @@ const UserModel = require("../Models/user.js");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto"); 
 const { sendVerificationEmail } = require("../services/email.service");
-const { generateVerificationToken } = require("../utils/jwt.utils");
+const { generateVerificationToken, verifyVerificationToken } = require("../utils/jwt.utils")
 
 
 const RegisterController = async (req, res) => {
@@ -108,28 +108,22 @@ const VerifyEmailController = async (req, res) => {
     const user = await UserModel.findOne({ email: decoded.email });
 
     if (!user) {
-      return res.redirect(
-        "https://web-shop-frontend.vercel.app/verify-email?status=invalid"
-      );
+      return res.status(400).json({ message: "invalid link" });
     }
-
     if (user.verified) {
-      return res.redirect(
-        "https://web-shop-frontend.vercel.app/verify-email?status=already-verified"
-      );
+      return res.status(400).json({ message: "already verified" });
     }
 
     user.verified = true;
     await user.save();
 
-    return res.redirect(
-      "https://web-shop-frontend.vercel.app/verify-email?status=success"
-    );
+    return res.status(200).json({ message: "Email verified successfully" });
 
   } catch (err) {
-    return res.redirect(
-      "https://web-shop-frontend.vercel.app/verify-email?status=expired"
-    );
+    if (err.name === "TokenExpiredError") {
+      return res.status(400).json({ message: "link expired" });
+    }
+    return res.status(400).json({ message: "invalid link" });
   }
 };
 
