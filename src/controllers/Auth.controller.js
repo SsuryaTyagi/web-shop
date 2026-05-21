@@ -2,8 +2,9 @@ const UserModel = require("../Models/user.js");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto"); 
 const { sendVerificationEmail } = require("../services/email.service");
+const { generateVerificationToken } = require("../utils/jwt.utils");
 
-// ─── REGISTER ──────────────────────────────────────────────
+
 const RegisterController = async (req, res) => {
   try {
     const { name, number, email, password, address } = req.body;
@@ -18,65 +19,24 @@ const RegisterController = async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
-
-    const verificationToken = crypto.randomBytes(32).toString("hex");
-
     const newUser = await UserModel.create({
-      name,
-      number,
-      email,
+      name, number, email,
       password: hashedPassword,
       address,
-      verified: false,                  
-      verificationToken,                
+      verified: false, // ✅ default false
     });
 
-    
+    // ✅ Verification token banao aur email bhejo
+    const verificationToken = generateVerificationToken(email);
     await sendVerificationEmail(email, name, verificationToken);
 
     return res.status(201).json({
       message: "Registration successful! Please verify your email.",
-      user: {
-        id: newUser._id,
-        name: newUser.name,
-        email: newUser.email,
-        verified: newUser.verified,
-      },
     });
+
   } catch (error) {
     console.error("Register Error:", error);
     return res.status(500).json({ message: "Internal Server Error" });
-  }
-};
-
-// ─── VERIFY EMAIL ──────────────────────────────────────────
-const VerifyEmailController = async (req, res) => {
-  try {
-    const { token } = req.params;
-
-    const user = await UserModel.findOne({ verificationToken: token });
-
-    if (!user) {
-      return res.redirect(
-        "https://web-shop-frontend.vercel.app/login?error=invalid-link"
-      );
-    }
-
-   
-    user.verified = true;
-    user.verificationToken = null; 
-    await user.save();
-
-    return res.redirect(
-      "https://web-shop-frontend.vercel.app/login?verified=true"
-    );
-
-  } catch (error) {
-    console.error("Verify Error:", error);
-    return res.redirect(
-      "https://web-shop-frontend.vercel.app/login?error=server-error"
-    );
   }
 };
 
@@ -138,6 +98,39 @@ const LogoutController = (req, res) => {
     path: "/",
   });
   return res.status(200).json({ message: "Logged out successfully" });
+};
+
+const VerifyEmailController = async (req, res) => {
+  try {
+    const { token } = req.params;
+    const decoded = verifyVerificationToken(token);
+
+    const user = await UserModel.findOne({ email: decoded.email });
+
+    if (!user) {
+      return res.redirect(
+        "https://web-shop-frontend.vercel.app/verify-email?status=invalid"
+      );
+    }
+
+    if (user.verified) {
+      return res.redirect(
+        "https://web-shop-frontend.vercel.app/verify-email?status=already-verified"
+      );
+    }
+
+    user.verified = true;
+    await user.save();
+
+    return res.redirect(
+      "https://web-shop-frontend.vercel.app/verify-email?status=success"
+    );
+
+  } catch (err) {
+    return res.redirect(
+      "https://web-shop-frontend.vercel.app/verify-email?status=expired"
+    );
+  }
 };
 
 module.exports = {
