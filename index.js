@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const MongoConnection = require("./src/config/db");
 const session = require("express-session");
+const passport = require("./src/config/passport");
 
 
 const app = express();
@@ -20,6 +21,15 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(async (req, res, next) => {
+  try {
+    await MongoConnection();
+    next();
+  } catch (err) {
+    return res.status(500).json({ message: "Database connection failed" });
+  }
+});
 
 
 // app.use(express.static("public"));
@@ -32,7 +42,6 @@ const sendMaile = require("./src/routes/contactMail");
 const googleAuthenticator = require("./src/routes/googleAuth");
 const paymentRouter = require("./src/routes/payment");
 const OrderRoutes = require("./src/routes/orderRoutes");
-const passport = require("./src/config/passport");
 
 // ✅ Routes
 app.use("/", menuRoutes);
@@ -40,7 +49,6 @@ app.use("/", bestRoutes);
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", sendMaile);
-app.use(passport.initialize());
 app.use("/auth", googleAuthenticator);
 app.use("/api/payment", paymentRouter);
 app.use("/", OrderRoutes);
@@ -51,16 +59,9 @@ app.get("/", (req, res) => {
   res.send("Backend running!");
 });
 
-// ✅ Yeh karo
+
 const port = process.env.PORT || 8000;
 
-MongoConnection()
-  .then(() => {
-    console.log("MongoDB connected");
-  })
-  .catch((err) => console.error("MongoDB error:", err));
-
-// Local development ke liye
 if (process.env.NODE_ENV !== "production") {
   app.listen(port, () => console.log(`http://localhost:${port}`));
 }

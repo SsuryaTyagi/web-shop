@@ -1,9 +1,23 @@
+const mongoose = require("mongoose");
 
-const mongoose = require('mongoose');
+let isConnected = false;
 
-const MongoConnection = async() => {    
-    await mongoose.connect(process.env.MONGO_CONN);
-}
+const MongoConnection = async () => {
+  if (isConnected) return;
 
+  try {
+    await mongoose.connect(process.env.MONGO_CONN, {
+      serverSelectionTimeoutMS: 30000, 
+      socketTimeoutMS: 45000,
+      connectTimeoutMS: 30000,
+    });
+    isConnected = true;
+    console.log("MongoDB connected");
+  } catch (err) {
+    isConnected = false;
+    console.error("MongoDB error:", err.message);
+    throw err;
+  }
+};
 
 module.exports = MongoConnection;

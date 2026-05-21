@@ -8,7 +8,7 @@ const {
 } = require("../controllers/Auth.controller");
 
 router.post("/register", RegisterController);
-router.get("/auth/verify-email/:token", VerifyEmailController); // ✅ naya
+router.get("/auth/verify-email/:token", VerifyEmailController);
 router.post("/login", LoginController);
 router.post("/logout", LogoutController);
 router.get("/verify-email/:token", VerifyEmailController)
