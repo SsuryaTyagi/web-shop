@@ -27,7 +27,7 @@ const CreateOrderController = async (req, res) => {
  
 // ─── VERIFY PAYMENT ────────────────────────────────────────
 const VerifyPaymentController = async (req, res) => {
-    const Secret = x5pIykYBR6AW4maQS6huExT3
+    const Secret = "x5pIykYBR6AW4maQS6huExT3"
   try {
     const {
       razorpay_order_id,
