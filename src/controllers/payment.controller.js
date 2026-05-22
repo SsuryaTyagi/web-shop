@@ -26,7 +26,6 @@ const CreateOrderController = async (req, res) => {
  
 // ─── VERIFY PAYMENT ────────────────────────────────────────
 const VerifyPaymentController = async (req, res) => {
-
   try {
     const {
       razorpay_order_id,
@@ -34,36 +33,39 @@ const VerifyPaymentController = async (req, res) => {
       razorpay_signature,
     } = req.body;
 
-        console.log("Received:", { razorpay_order_id, razorpay_payment_id, razorpay_signature });
-    console.log("Secret:", process.env.RAZORPAY_KEY_SECRET);
- 
-    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+    // ✅ Strict undefined check — empty string bhi allow karo
+    if (
+      razorpay_order_id === undefined ||
+      razorpay_payment_id === undefined ||
+      razorpay_signature === undefined
+    ) {
       return res.status(400).json({ message: "All payment fields are required" });
     }
- 
-    // ✅ Signature verify karo — crypto se
+
     const body = razorpay_order_id + "|" + razorpay_payment_id;
- 
+
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
       .update(body)
       .toString("hex");
- 
-    // ✅ Signatures match nahi → payment fake hai
+
+    console.log("Expected:  ", expectedSignature);
+    console.log("Received:  ", razorpay_signature);
+    console.log("Match:     ", expectedSignature === razorpay_signature);
+
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({
         success: false,
-        message: "Payment verification failed — invalid signature",
+        message: "Payment verification failed",
       });
     }
- 
-    // ✅ Payment genuine hai
+
     return res.status(200).json({
       success: true,
       message: "Payment verified successfully",
       payment_id: razorpay_payment_id,
     });
- 
+
   } catch (err) {
     console.error("Verify Payment Error:", err);
     return res.status(500).json({ message: "Verification failed" });
