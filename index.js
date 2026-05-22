@@ -34,14 +34,14 @@ app.use(async (req, res, next) => {
 
 // app.use(express.static("public"));
 
-const menuRoutes = require("./src/routes/menuRoutes");
-const bestRoutes = require("./src/routes/bestRoutes");
-const authRouter = require("./src/routes/authRouter");
-const profileRouter = require("./src/routes/profileRouter");
-const sendMaile = require("./src/routes/contactMail");
-const googleAuthenticator = require("./src/routes/googleAuth");
-const paymentRouter = require("./src/routes/payment");
-const OrderRoutes = require("./src/routes/orderRoutes");
+const menuRoutes = require("./src/routes/menu.routes");
+const bestRoutes = require("./src/routes/best.Routes");
+const authRouter = require("./src/routes/auth.Routes");
+const profileRouter = require("./src/routes/profileRouter.routes");
+const sendMaile = require("./src/routes/contactMail.routes");
+const googleAuthenticator = require("./src/routes/googleAuth.routes");
+const paymentRouter = require("./src/routes/payment.routes");
+const OrderRoutes = require("./src/routes/order.routes");
 
 // ✅ Routes
 app.use("/", menuRoutes);
