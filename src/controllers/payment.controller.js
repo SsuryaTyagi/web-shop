@@ -3,6 +3,7 @@ const razorpay = require("../../razorpay");
  
 // ─── CREATE ORDER ──────────────────────────────────────────
 const CreateOrderController = async (req, res) => {
+
   try {
     const { amount } = req.body;
  
@@ -26,6 +27,7 @@ const CreateOrderController = async (req, res) => {
  
 // ─── VERIFY PAYMENT ────────────────────────────────────────
 const VerifyPaymentController = async (req, res) => {
+    const Secret = x5pIykYBR6AW4maQS6huExT3
   try {
     const {
       razorpay_order_id,
@@ -38,10 +40,10 @@ const VerifyPaymentController = async (req, res) => {
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     console.log("2. Body:", body);
 
-    console.log("3. Secret:", process.env.RAZORPAY_KEY_SECRET);
+    console.log("3. Secret:", Secret);
 
     const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
+      .createHmac("sha256", Secret)
       .update(body)
       .toString("hex");
 
