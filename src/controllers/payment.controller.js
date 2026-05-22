@@ -44,7 +44,7 @@ const VerifyPaymentController = async (req, res) => {
     const expectedSignature = crypto
       .createHmac("sha256", Secret)
       .update(body)
-      .toString("hex");
+      .digest("hex");;
 
     console.log("4. Expected:", expectedSignature);
     console.log("5. Received:", razorpay_signature);
