@@ -52,6 +52,10 @@ const VerifyPaymentController = async (req, res) => {
     console.log("Expected:  ", expectedSignature);
     console.log("Received:  ", razorpay_signature);
     console.log("Match:     ", expectedSignature === razorpay_signature);
+    console.log("Expected:  ", expectedSignature);
+console.log("Received:  ", razorpay_signature);
+console.log("Secret used:", process.env.RAZORPAY_KEY_SECRET);
+console.log("Body used:  ", body);
 
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({
