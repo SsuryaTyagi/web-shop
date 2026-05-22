@@ -26,12 +26,16 @@ const CreateOrderController = async (req, res) => {
  
 // ─── VERIFY PAYMENT ────────────────────────────────────────
 const VerifyPaymentController = async (req, res) => {
+
   try {
     const {
       razorpay_order_id,
       razorpay_payment_id,
       razorpay_signature,
     } = req.body;
+
+        console.log("Received:", { razorpay_order_id, razorpay_payment_id, razorpay_signature });
+    console.log("Secret:", process.env.RAZORPAY_KEY_SECRET);
  
     if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
       return res.status(400).json({ message: "All payment fields are required" });
