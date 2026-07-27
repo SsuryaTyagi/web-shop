@@ -3,7 +3,6 @@ const UserModel = require("../Models/user");
 
 const userAuth = async (req, res, next) => {
   try {
-    // ✅ Pehle header check (normal login), phir cookie (Google login)
     const authHeader = req.headers.authorization;
     const headerToken = authHeader?.startsWith("Bearer ")
       ? authHeader.split(" ")[1]
@@ -17,7 +16,7 @@ const userAuth = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_TOKEN_SECRET);
 
-    // ✅ id ya email — dono se dhundo
+  
     const user = await UserModel.findOne(
       decoded.id
         ? { _id: decoded.id }

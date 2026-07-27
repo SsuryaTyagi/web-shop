@@ -1,16 +1,20 @@
-const express = require('express');
-const menu = require("../data/Menu.json")
-
+const express = require("express");
 const router = express.Router();
+const {
+  getAllMenuItems,
+  getMenuItemById,
+  createMenuItem,
+  updateMenuItem,
+  deleteMenuItem,
+} = require("../controllers/menu.controller");
 
-// /best route
-router.get('/menu', (req, res) => {
-    try {
-      return res.status(200).json(menu)
-    } catch (error) {
-      res.status(500).send('Internal Server Error');
-    }
-  });
 
+// GET /api/menu
+// Get all menu items (optionally filter by category or popular)
+router.get("/api/menu", getAllMenuItems);
+router.get("/:id", getMenuItemById);
+router.post("/", createMenuItem);
+router.put("/:id", updateMenuItem);
+router.delete("/:id", deleteMenuItem);
 
 module.exports = router;

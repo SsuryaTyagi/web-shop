@@ -8,6 +8,7 @@ const session = require("express-session");
 const passport = require("./src/config/passport");
 
 
+
 const app = express();
 app.set("trust proxy", 1);
 app.use(cors({
@@ -35,23 +36,24 @@ app.use(async (req, res, next) => {
 // app.use(express.static("public"));
 
 const menuRoutes = require("./src/routes/menu.routes");
-const bestRoutes = require("./src/routes/best.Routes");
 const authRouter = require("./src/routes/auth.Routes");
 const profileRouter = require("./src/routes/profileRouter.routes");
 const sendMaile = require("./src/routes/contactMail.routes");
 const googleAuthenticator = require("./src/routes/googleAuth.routes");
 const paymentRouter = require("./src/routes/payment.routes");
 const OrderRoutes = require("./src/routes/order.routes");
+const MenuCategory = require("./src/routes/Category.routes")
 
 // ✅ Routes
 app.use("/", menuRoutes);
-app.use("/", bestRoutes);
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", sendMaile);
 app.use("/auth", googleAuthenticator);
 app.use("/api/payment", paymentRouter);
 app.use("/", OrderRoutes);
+app.use("/",MenuCategory)
+
 
 
 
