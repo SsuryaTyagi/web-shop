@@ -1,7 +1,9 @@
 const UserModel = require("../Models/user.js");
 const { sendVerificationEmail } = require("../services/email.service");
-const { generateVerificationToken, verifyVerificationToken } = require("../utils/jwt.utils")
-
+const {
+  generateVerificationToken,
+  verifyVerificationToken,
+} = require("../utils/jwt.utils");
 
 const RegisterController = async (req, res) => {
   try {
@@ -16,10 +18,11 @@ const RegisterController = async (req, res) => {
       return res.status(400).json({ message: "User already exists" });
     }
 
-   
     const newUser = await UserModel.create({
-      name, number, email,
-      password,        
+      name,
+      number,
+      email,
+      password,
       address,
       verified: false,
     });
@@ -30,7 +33,6 @@ const RegisterController = async (req, res) => {
     return res.status(201).json({
       message: "Registration successful! Please verify your email.",
     });
-
   } catch (error) {
     console.error("Register Error:", error);
     return res.status(500).json({ message: "Internal Server Error" });
@@ -52,7 +54,6 @@ const LoginController = async (req, res) => {
       return res.status(400).json({ message: "Invalid password" });
     }
 
-    
     if (!user.verified) {
       return res.status(403).json({
         message: "Please verify your email before logging in.",
@@ -115,12 +116,19 @@ const VerifyEmailController = async (req, res) => {
     await user.save();
 
     return res.status(200).json({ message: "Email verified successfully" });
-
   } catch (err) {
     if (err.name === "TokenExpiredError") {
       return res.status(400).json({ message: "link expired" });
     }
     return res.status(400).json({ message: "invalid link" });
+  }
+};
+const getMeController = async (req, res) => {
+  try {
+    return res.status(200).json({ user: req.user });
+  } catch (error) {
+    console.error("getMeController error:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -129,4 +137,5 @@ module.exports = {
   VerifyEmailController,
   LoginController,
   LogoutController,
+  getMeController,
 };

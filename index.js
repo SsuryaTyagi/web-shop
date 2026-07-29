@@ -35,7 +35,7 @@ app.use(async (req, res, next) => {
 
 // app.use(express.static("public"));
 
-const menuRoutes = require("./src/routes/menu.routes");
+const menuRouter = require("./src/routes/menu.routes");
 const authRouter = require("./src/routes/auth.Routes");
 const profileRouter = require("./src/routes/profileRouter.routes");
 const sendMaile = require("./src/routes/contactMail.routes");
@@ -45,8 +45,8 @@ const OrderRoutes = require("./src/routes/order.routes");
 const MenuCategory = require("./src/routes/Category.routes")
 
 // ✅ Routes
-app.use("/", menuRoutes);
 app.use("/", authRouter);
+app.use("/", menuRouter);
 app.use("/", profileRouter);
 app.use("/", sendMaile);
 app.use("/auth", googleAuthenticator);
