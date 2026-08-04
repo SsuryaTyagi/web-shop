@@ -33,8 +33,7 @@ const SendMailController = async (req, res) => {
         <p><b>Message:</b> ${message}</p>
       `,
     });
- 
-    console.log(`Mail sent from: ${name} <${email}>`);
+
     return res.status(200).json({ success: true, message: "Email sent successfully!" });
  
   } catch (err) {

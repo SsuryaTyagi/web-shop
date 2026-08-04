@@ -34,13 +34,13 @@ const CreateOrderController = async (req, res) => {
 // ─── GET ORDERS ────────────────────────────────────────────
 const GetOrderController = async (req, res) => {
   try {
-    const { email } = req.body;
+    const user = req.user;
  
-    if (!email) {
-      return res.status(400).json({ message: "Email is required" });
+    if (!user){
+      return res.status(400).json({ message: "user is required" });
     }
  
-    const orders = await OrderModel.find({ "user.email": email })
+    const orders = await OrderModel.find({ "user.email": user.email })
       .sort({ createdAt: -1 });
  
     return res.status(200).json({ success: true, order: orders });
@@ -51,4 +51,20 @@ const GetOrderController = async (req, res) => {
   }
 };
  
-module.exports = { CreateOrderController, GetOrderController };
+const GetAllOrdersController = async (req, res) => {
+  try {
+    const orders = await OrderModel.find().sort({ createdAt: -1 });
+
+    return res.status(200).json({ success: true, orders });
+
+  } catch (error) {
+    console.error("Get All Orders Error:", error);
+    return res.status(500).json({ message: "Failed to fetch orders" });
+  }
+};
+
+module.exports = {
+  CreateOrderController,
+  GetOrderController,
+  GetAllOrdersController, 
+};
