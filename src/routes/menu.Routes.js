@@ -6,7 +6,7 @@ const {
   createMenuItem,
   updateMenuItem,
   deleteMenuItem,
-} = require("../controllers/menu.controller");
+} = require("../controllers/menu.Controller");
 
 
 // GET /api/menu

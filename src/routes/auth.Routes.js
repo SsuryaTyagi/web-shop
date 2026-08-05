@@ -6,8 +6,8 @@ const {
   LoginController,
   LogoutController,
   getMeController,
-} = require("../controllers/Auth.controller");
-const { userAuth } = require("../Middlewares/auth.js");
+} = require("../controllers/auth.Controller.js");
+const { userAuth } = require("../middlewares/auth.js");
 
 router.post("/register", RegisterController);
 router.get("/auth/verify-email/:token", VerifyEmailController);

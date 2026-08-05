@@ -1,6 +1,6 @@
 const express = require("express");
 const passport = require("../config/passport");
-const { googleCallback } = require("../controllers/googleAuth.controller");
+const { googleCallback } = require("../controllers/googleAuth.Controller");
 
 const router = express.Router();
 

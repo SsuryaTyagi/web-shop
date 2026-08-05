@@ -1,9 +1,9 @@
-const UserModel = require("../Models/user.js");
-const { sendVerificationEmail } = require("../services/email.service");
+const UserModel = require("../models/user.Model.js");
+const { sendVerificationEmail } = require("../services/email.service.js");
 const {
   generateVerificationToken,
   verifyVerificationToken,
-} = require("../utils/jwt.utils");
+} = require("../utils/jwt.utils.js");
 
 const RegisterController = async (req, res) => {
   try {

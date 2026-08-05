@@ -27,13 +27,13 @@ app.use(passport.initialize());
 
 // ✅ Route imports
 const authRouter = require("./routes/auth.Routes");
-const menuRouter = require("./routes/menu.routes");
-const profileRouter = require("./routes/profileRouter.routes");
-const sendMaile = require("./routes/contactMail.routes");
-const googleAuthenticator = require("./routes/googleAuth.routes");
-const paymentRouter = require("./routes/payment.routes");
-const OrderRoutes = require("./routes/order.routes");
-const MenuCategory = require("./routes/Category.routes");
+const menuRouter = require("./routes/menu.Routes");
+const profileRouter = require("./routes/profile.Routes");
+const sendMaile = require("./routes/contactMail.Routes");
+const googleAuthenticator = require("./routes/googleAuth.Routes");
+const paymentRouter = require("./routes/payment.Routes");
+const OrderRoutes = require("./routes/order.Routes");
+const MenuCategory = require("./routes/category.Routes");
 
 // ✅ Routes
 app.use("/", authRouter);

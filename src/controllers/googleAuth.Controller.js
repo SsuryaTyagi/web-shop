@@ -1,4 +1,4 @@
-const UserModel = require("../Models/user");
+const UserModel = require("../models/user.Model");
 
 const googleCallback = async (req, res) => {
   try {

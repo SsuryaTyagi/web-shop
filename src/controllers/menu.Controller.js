@@ -1,4 +1,4 @@
-const MenuItem = require("../Models/menu.model.js");
+const MenuItem = require("../models/menu.Model.js");
 
 // GET /api/menu
 // Get all menu items (optionally filter by category or popular)
