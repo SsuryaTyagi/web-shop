@@ -8,21 +8,13 @@ const passport = require("./config/passport");
 const app = express();
 app.set("trust proxy", 1);
 
-   const allowedOrigins = [
-     "https://web-shop-frontend.vercel.app",
-     "http://localhost:5173",
-   ];
+const corsOptions = {
+    origin: ['http://localhost:3000', 'https://yourfrontend.com'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    credentials: true // Allow cookies or authorization headers
+};
 
-   app.use(cors({
-     origin: (origin, callback) => {
-       if (!origin || allowedOrigins.includes(origin)) {
-         callback(null, true);
-       } else {
-         callback(new Error("Not allowed by CORS"));
-       }
-     },
-     credentials: true,
-   }));
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(express.json());
