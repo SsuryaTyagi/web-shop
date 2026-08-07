@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("./config/passport");
+const MongoConnection = require("./config/db");
 
 const app = express();
 app.set("trust proxy", 1);
@@ -34,6 +35,18 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
+// ✅ Ensure DB connection before handling any request (needed for Vercel serverless,
+// since vercel.json points directly to this file — server.js is local-dev only)
+app.use(async (req, res, next) => {
+  try {
+    await MongoConnection();
+    next();
+  } catch (err) {
+    console.error("Database connection failed:", err.message);
+    res.status(500).json({ message: "Database connection failed" });
+  }
+});
+
 // app.use(express.static("public"));
 
 // Route imports
@@ -46,7 +59,7 @@ const paymentRouter = require("./routes/payment.Routes");
 const OrderRoutes = require("./routes/order.Routes");
 const MenuCategory = require("./routes/category.Routes");
 
-//  Routes
+// Routes
 app.use("/", authRouter);
 app.use("/", menuRouter);
 app.use("/", profileRouter);
