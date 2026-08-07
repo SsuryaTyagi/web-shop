@@ -1,9 +1,7 @@
 const app = require("./src/app");
-const connectToDb = require("./src/config/db");
+
 
 const startServer = async () => {
-  await connectToDb();
-
   const PORT = process.env.PORT || 3000;
 
   app.listen(PORT, () => {
