@@ -1,3 +1,4 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
 let isConnected = false;
@@ -7,7 +8,7 @@ const MongoConnection = async () => {
 
   try {
     await mongoose.connect(process.env.MONGO_CONN, {
-      serverSelectionTimeoutMS: 30000, 
+      serverSelectionTimeoutMS: 30000,
       socketTimeoutMS: 45000,
       connectTimeoutMS: 30000,
     });

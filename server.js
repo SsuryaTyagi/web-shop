@@ -1,12 +1,14 @@
 const app = require("./src/app");
-const MongoConnection = require("./src/config/db");
+const connectToDb = require("./src/config/db");
 
-let isConnected = false;
+const startServer = async () => {
+  await connectToDb();
 
-module.exports = async (req, res) => {
-  if (!isConnected) {
-    await MongoConnection();
-    isConnected = true;
-  }
-  return app(req, res);
+  const PORT = process.env.PORT || 3000;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on ${PORT}`);
+  });
 };
+
+startServer();

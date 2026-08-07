@@ -8,7 +8,6 @@ const passport = require("./config/passport");
 const app = express();
 app.set("trust proxy", 1);
 
-
 const allowedOrigins = [
   "https://web-shop-frontend.vercel.app",
   "http://localhost:5173", // for local dev
@@ -37,7 +36,7 @@ app.use(passport.initialize());
 
 // app.use(express.static("public"));
 
-// ✅ Route imports
+// Route imports
 const authRouter = require("./routes/auth.Routes");
 const menuRouter = require("./routes/menu.Routes");
 const profileRouter = require("./routes/profile.Routes");
@@ -47,7 +46,7 @@ const paymentRouter = require("./routes/payment.Routes");
 const OrderRoutes = require("./routes/order.Routes");
 const MenuCategory = require("./routes/category.Routes");
 
-// ✅ Routes
+//  Routes
 app.use("/", authRouter);
 app.use("/", menuRouter);
 app.use("/", profileRouter);
