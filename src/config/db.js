@@ -1,6 +1,9 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
 
+
+console.log("MONGO_CONN exists:", !!process.env.MONGO_CONN);
+console.log("MONGO_CONN length:", process.env.MONGO_CONN?.length);
 let isConnected = false;
 
 const MongoConnection = async () => {
