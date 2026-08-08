@@ -69,6 +69,10 @@ app.use("/api/payment", paymentRouter);
 app.use("/", OrderRoutes);
 app.use("/", MenuCategory);
 
+// adminRoutes
+const adminRoutes = require("./routes/admin.Routes");
+app.use("/", adminRoutes);
+
 app.get("/", (req, res) => {
   res.send("Backend running!");
 });
