@@ -50,21 +50,8 @@ const GetOrderController = async (req, res) => {
     return res.status(500).json({ message: "Failed to fetch orders" });
   }
 };
- 
-const GetAllOrdersController = async (req, res) => {
-  try {
-    const orders = await OrderModel.find().sort({ createdAt: -1 });
-
-    return res.status(200).json({ success: true, orders });
-
-  } catch (error) {
-    console.error("Get All Orders Error:", error);
-    return res.status(500).json({ message: "Failed to fetch orders" });
-  }
-};
 
 module.exports = {
   CreateOrderController,
   GetOrderController,
-  GetAllOrdersController, 
 };
