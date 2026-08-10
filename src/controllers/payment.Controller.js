@@ -30,29 +30,12 @@ const VerifyPaymentController = async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
       req.body;
 
-    console.log("1. Received fields:", {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-    });
-
     const body = razorpay_order_id + "|" + razorpay_payment_id;
-    console.log("2. Body:", body);
-
-    console.log("3. Secret:", Secret);
 
     const expectedSignature = crypto
       .createHmac("sha256", Secret)
       .update(body)
-      .digest("hex");;
-
-    console.log("4. Expected:", expectedSignature);
-    console.log("5. Received:", razorpay_signature);
-    console.log("6. Match:", expectedSignature === razorpay_signature);
-    console.log("Expected:", expectedSignature);
-    console.log("Received:", razorpay_signature);
-    console.log("Secret:", process.env.RAZORPAY_KEY_SECRET);
-    console.log("Body:", body);
+      .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
       return res.status(400).json({
