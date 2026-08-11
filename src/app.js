@@ -52,7 +52,6 @@ app.use(async (req, res, next) => {
 // Route imports
 const authRouter = require("./routes/auth.Routes");
 const menuRouter = require("./routes/menu.Routes");
-const profileRouter = require("./routes/profile.Routes");
 const sendMaile = require("./routes/contactMail.Routes");
 const googleAuthenticator = require("./routes/googleAuth.Routes");
 const paymentRouter = require("./routes/payment.Routes");
@@ -62,7 +61,6 @@ const MenuCategory = require("./routes/category.Routes");
 // Routes
 app.use("/", authRouter);
 app.use("/", menuRouter);
-app.use("/", profileRouter);
 app.use("/", sendMaile);
 app.use("/auth", googleAuthenticator);
 app.use("/api/payment", paymentRouter);

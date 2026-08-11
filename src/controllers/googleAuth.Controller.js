@@ -3,9 +3,7 @@ const UserModel = require("../models/user.Model");
 const googleCallback = async (req, res) => {
   try {
     const googleUser = req.user;
-    const { state: mode } = req.query;
     const googleEmail = googleUser.emails[0].value;
-console.log(mode);
 
     let user = await UserModel.findOne({ googleId: googleUser.id });
 
@@ -15,12 +13,6 @@ console.log(mode);
         user.googleId = googleUser.id;
         await user.save();
       }
-    }
-
-    if (mode === "login" && !user) {
-      return res.redirect(
-        "https://web-shop-frontend.vercel.app/login?error=not-registered",
-      );
     }
 
     if (!user) {
@@ -35,14 +27,12 @@ console.log(mode);
       });
 
       const token = await user.jwtUserAuthenticationToken();
-    
       return res.redirect(
         `https://web-shop-frontend.vercel.app/complete-profile?token=${token}`,
       );
     }
 
     const token = await user.jwtUserAuthenticationToken();
-    // ✅ Cookie nahi — URL mein token bhejo
     return res.redirect(`https://web-shop-frontend.vercel.app?token=${token}`);
   } catch (err) {
     console.error("Google Auth Error:", err.message);
