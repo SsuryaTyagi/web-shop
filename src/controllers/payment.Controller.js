@@ -51,6 +51,7 @@ const VerifyPaymentController = async (req, res) => {
     return res.status(200).json({
       success: true,
       payment_id: razorpay_payment_id,
+      message: "Payment verified successfully",
     });
   } catch (err) {
     console.error("Error:", err);
