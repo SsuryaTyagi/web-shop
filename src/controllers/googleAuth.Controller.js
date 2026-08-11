@@ -28,7 +28,7 @@ const googleCallback = async (req, res) => {
 
       const token = await user.jwtUserAuthenticationToken();
       return res.redirect(
-        `https://web-shop-frontend.vercel.app/complete-profile?token=${token}`,
+        `https://web-shop-frontend.vercel.app?token=${token}`,
       );
     }
 
