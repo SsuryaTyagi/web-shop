@@ -5,6 +5,7 @@ const googleCallback = async (req, res) => {
     const googleUser = req.user;
     const { state: mode } = req.query;
     const googleEmail = googleUser.emails[0].value;
+console.log(mode);
 
     let user = await UserModel.findOne({ googleId: googleUser.id });
 
