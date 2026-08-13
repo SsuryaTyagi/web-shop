@@ -3,7 +3,6 @@ const orderModel = require("../models/order.Model");
 const getOrders = async (req, res) => {
   try {
     let { date } = req.query;
-    console.log("HIT getOrders", req.query);
 
     if (!date) {
       date = new Date().toISOString().slice(0, 10);
