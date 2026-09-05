@@ -11,7 +11,7 @@ app.set("trust proxy", 1);
 
 const allowedOrigins = [
   "https://web-shop-frontend.vercel.app",
-  "http://localhost:5173", // for local dev
+  "http://localhost:5174", // for local dev
 ];
 
 const corsOptions = {
@@ -27,6 +27,8 @@ const corsOptions = {
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
+const helmet = require('helmet');
+app.use(helmet());
 
 app.use(cors(corsOptions));
 

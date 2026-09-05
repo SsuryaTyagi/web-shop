@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+const ORDER_STATUSES = ["Pending", "Preparing", "Out for Delivery", "Delivered", "Cancelled"];
+
 const orderSchema = new mongoose.Schema(
   {
     user: {
@@ -22,10 +24,12 @@ const orderSchema = new mongoose.Schema(
     payment_id: String,
     status: {
       type: String,
-      default: "Delivered",
+      enum: ORDER_STATUSES,
+      default: "Pending",
     },
   },
   { timestamps: true }
 );
 
 module.exports = mongoose.model("Order", orderSchema);
+module.exports.ORDER_STATUSES = ORDER_STATUSES;
