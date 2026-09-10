@@ -37,8 +37,7 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(passport.initialize());
 
-// ✅ Ensure DB connection before handling any request (needed for Vercel serverless,
-// since vercel.json points directly to this file — server.js is local-dev only)
+
 app.use(async (req, res, next) => {
   try {
     await MongoConnection();
