@@ -18,7 +18,6 @@ exports.getAllMenuItems = async (req, res) => {
 };
 
 // GET /api/menu/:id
-// Get a single menu item by ID
 exports.getMenuItemById = async (req, res) => {
   try {
     const menuItem = await MenuItem.findById(req.params.id);
